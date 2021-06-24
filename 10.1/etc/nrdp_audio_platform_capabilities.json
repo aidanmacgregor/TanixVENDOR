@@ -1,0 +1,18 @@
+{
+  "audiocaps": {
+    "continuousAudio": false,
+    "pcm": {
+      "mixing": true,
+      "transition": ease
+    },
+    "ddplus": {
+      "mixing": false,
+      "transition": mute
+    },
+    "atmos": {
+      "enabled": false,
+      "mixing": false,
+      "transition": mute
+    }
+  }
+}

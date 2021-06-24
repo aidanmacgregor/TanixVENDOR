@@ -1,0 +1,76 @@
+on boot
+	#start usid
+	#start activate
+	start fastinstall
+	start root_access
+
+service preinstall /system/bin/preinstall.sh
+    user root
+    group root
+    disabled
+    oneshot
+
+service fastinstall /system/bin/fastinstall.sh
+    user root
+    group root
+    disabled
+    oneshot
+
+service sud /system/xbin/sud --daemon
+    user root
+    group root
+    disabled
+    oneshot
+
+service root_access /system/xbin/root_access.sh
+    user root
+    group root
+    disabled
+    oneshot
+
+#service activate /system/bin/a.sh
+#    user root
+#    group root
+#    disabled
+#    oneshot
+
+#service usid /system/xbin/zndusid
+#    user root
+#    group root
+#    disabled
+#    oneshot
+
+#service zndreactivate /system/xbin/zndreactivate
+#    user root
+#    group root
+#    class main
+#    oneshot
+
+service zndmac /system/xbin/zndmac
+    class main
+    disabled
+    oneshot
+
+on property:dev.reactivate.start=1
+   start zndreactivate
+
+on property:dev.mac.start=1
+    start zndmac
+
+
+on property:persist.sys.12_24hours=24
+	write /sys/class/leds/fd650_dev/led_is_24hours 1
+	write /sys/class/leds/fd628_dev/led_is_24hours 1
+
+on property:persist.sys.12_24hours=12
+	write /sys/class/leds/fd650_dev/led_is_24hours 0
+	write /sys/class/leds/fd628_dev/led_is_24hours 0
+
+on property:dev.bootcomplete=1
+	#start activate
+    start preinstall
+
+on property:persist.service.root=1
+	start root_access
+on property:persist.service.root=0
+	start root_access

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- A2dp Audio HAL Audio Policy Configuration file -->
+<module name="rc" halVersion="2.0">
+    <mixPorts>
+        <mixPort name="rc input" role="sink">
+            <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+                     samplingRates="16000"
+                     channelMasks="AUDIO_CHANNEL_IN_MONO"/>
+        </mixPort>
+    </mixPorts>
+    <devicePorts>
+        <devicePort tagName="RC In" type="AUDIO_DEVICE_IN_WIRED_HEADSET" role="source">
+            <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+                     samplingRates="16000"
+                     channelMasks="AUDIO_CHANNEL_IN_MONO"/>
+        </devicePort>
+    </devicePorts>
+    <routes>
+        <route type="mix" sink="rc input"
+               sources="RC In"/>
+    </routes>
+</module>
